@@ -6,8 +6,8 @@ class BaseConfig(object):
     TESTING = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_DATABASE_URI = 'mysql://root:@localhost/udemydb'
-    RECAPTCHA_PUBLIC_KEY = '6LfDdE8aAAAAAP9PWtxDJLGuDLxr-lRnrSYVlN_p'
-    RECAPTCHA_PRIVATE_KEY = '6LfDdE8aAAAAADWyu3Il81pyalHcha-MedIjBwHy'
+    RECAPTCHA_PUBLIC_KEY = 'youRECAPTCHA_PUBLIC_KEY'
+    RECAPTCHA_PRIVATE_KEY = 'yourRECAPTCHA_PRIVATE_KEY'
     BABEL_TRANSLATION_DIRECTORIES = '/home/linuxhack/Descargas/udemy/flask_app/translations'
     USER_ENABLE_EMAIL = True
    # WTF_CSRF_TIME_LIMIT = 10
