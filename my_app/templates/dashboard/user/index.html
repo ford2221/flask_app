@@ -1,0 +1,92 @@
+{% extends 'layout/base.html' %}
+{% from 'macro/_pagination.html' import m_pagination %}
+
+{% block container %}
+    <a class="btn btn-primary mt-3" href="{{ url_for('usercrud.create') }}">
+        <i class="fa fa-plus"></i> Crear
+    </a>
+
+    </br>
+    <div class="list-user row mt-3">
+        {% for user in users.items %}
+ 
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    {{ user['email'] }}
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                    {{ user['username'] }}
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <a class="btn btn-info btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar"
+                                    href="{{ url_for('usercrud.update', id=user['id']) }}">
+                                    <i class="fa fa-edit"> </i>
+                                </a>
+
+                                <button data-bs-toggle="modal" data-bs-target="#deleteModal" data-name="{{ user['name'] }}"
+                                    data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar usuario"
+                                    data-id="{{ user['id'] }}" class="btn btn-danger btn-sm" 
+                                    href="{{ url_for('usercrud.delete', id=user['id']) }}">
+                                    <i class="fa fa-trash"></i> 
+                                </button>  
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          
+
+
+            <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Nombre: <span></span></h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            ¿Seguro que desea eliminar el registro seleccionado?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <a href="{{ url_for('usercrud.delete', id=user['id']) }}" id="deleteProduct" 
+                                class="btn btn-danger">
+                                <i class="fa fa-trash"></i> 
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        {% endfor %}
+    </div>
+    {{ m_pagination(users, 'usercrud.index') }}
+
+    
+
+    <script>
+        var deleteModal = document.getElementById('deleteModal')
+        deleteModal.addEventListener('show.bs.modal', function (event) {
+            // Button that triggered the modal
+            var button = event.relatedTarget
+            // Extract info from data-bs-* attributes
+            var name = button.getAttribute('name')
+            var id = button.getAttribute('id')
+            // If necessary, you could initiate an AJAX request here
+            // and then do the updating in a callback.
+            //
+            // Update the modal's content.
+            var modalTitle = deleteModal.querySelector('.modal-title span')
+            var modalBodyInput = deleteModal.querySelector('.modal-body input')
+
+            modalTitle.textContent = name
+           
+        })
+
+    </script>
+   
+{% endblock %}

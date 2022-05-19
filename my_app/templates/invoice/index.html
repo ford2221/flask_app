@@ -1,0 +1,45 @@
+{% extends 'layout/base.html' %}
+{% from 'macro/_pagination.html' import m_pagination %}
+
+{% block container %}
+    <a class="btn btn-primary mt-3" href="{{ url_for('invoice_product.dispatch') }}">
+        <i class="fa fa-plus"></i> Facturar
+    </a>
+
+    </br>
+    <div class="list-invoice row mt-3">
+        {% for sale in sales.items %}
+ 
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    {{ sale.name }} - {{ sale.surname }}
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                    {{ sale.company }}
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <a class="btn btn-info btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar"
+                                    href="{{ url_for('invoice_product.detail_pdf', id = sale.id) }}">
+                                    <i class="fa fa-file"> </i>
+                                </a>
+
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          
+
+
+            
+        {% endfor %}
+    </div>
+    {{ m_pagination(sales, 'invoice_product.index') }}
+
+{% endblock %}
